@@ -19,8 +19,12 @@ jobs:
           password: ${{ secrets.GH_PAT }}
           registry: ghcr.io
       
-      - name: Build Docker Image
-        run: docker build . --tag ghcr.io/nuwas/hello-world-go:latest
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
       
-      - name: Push Docker Image
-        run: docker push ghcr.io/nuwas/hello-world-go:latest
+      - name: Build and Push Multi-Arch Docker Image
+        run: |
+          docker buildx build --platform linux/amd64,linux/arm64 \
+            --tag ghcr.io/nuwas/hello-world-go:latest \
+            --push .
+
