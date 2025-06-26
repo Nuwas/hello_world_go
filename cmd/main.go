@@ -17,10 +17,16 @@ func main() {
 	router := gin.Default()
 
 	router.GET("/xxxx-xxxx/v1/message", func(c *gin.Context) {
+
+		log.Println("Received /xxxx-xxxx/v1/message request .")
+
 		c.JSON(http.StatusOK, "Hello ....xxxx...")
 	})
 
 	router.GET("/yyyy-yyyy/v1/message-y", func(c *gin.Context) {
+
+		log.Println("Received /yyyy-yyyy/v1/message request .")
+
 		c.JSON(http.StatusOK, "Hello ____yyyy____")
 	})
 
