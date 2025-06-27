@@ -23,7 +23,7 @@ func main() {
 		log.Println("Received /xxxx-xxxx/v1/message request .")
 
 		for i := 0; i < 100; i++ {
-			logger.LoggerS3.Println("Hello Jamesbond from /xxxx-xxxx/v1/message logger at", time.Now(), " -> ", i)
+			logger.LoggerS3.Println("Hello logPattern from /xxxx-xxxx/v1/message logger at", time.Now(), " -> ", i)
 		}
 
 		c.JSON(http.StatusOK, "Hello ....xxxx...")
