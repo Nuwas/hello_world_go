@@ -2,11 +2,13 @@ package main
 
 import (
 	"fmt"
+	"hello_world/logger"
 	"log"
 	"net/http"
 	"os"
 	"os/signal"
 	"syscall"
+	"time"
 
 	"github.com/gin-gonic/gin"
 )
@@ -19,6 +21,10 @@ func main() {
 	router.GET("/xxxx-xxxx/v1/message", func(c *gin.Context) {
 
 		log.Println("Received /xxxx-xxxx/v1/message request .")
+
+		for i := 0; i < 100; i++ {
+			logger.LoggerS3.Println("Hello Jamesbond from /xxxx-xxxx/v1/message logger at", time.Now(), " -> ", i)
+		}
 
 		c.JSON(http.StatusOK, "Hello ....xxxx...")
 	})
