@@ -1,8 +1,10 @@
 package logger
 
 import (
+	"io"
 	"log"
-	"os"
+
+	"gopkg.in/natefinch/lumberjack.v2"
 )
 
 var LoggerS3 *log.Logger
@@ -10,12 +12,16 @@ var LoggerS3 *log.Logger
 func init() {
 	logPath := "/var/log/app/delivery/s3.log"
 
-	// Open file in append mode, create it if it doesn't exist
-	file, err := os.OpenFile(logPath, os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
-	if err != nil {
-		panic("Failed to open log file: " + err.Error())
+	// Set up lumberjack for rotation
+	rotator := &lumberjack.Logger{
+		Filename:   logPath,
+		MaxSize:    1, // megabytes
+		MaxBackups: 2,
+		MaxAge:     1, // days
+		Compress:   false,
 	}
 
-	// Create logger that writes to the shared file
-	LoggerS3 = log.New(file, "[S3] ", log.LstdFlags|log.Lshortfile)
+	// MultiWriter for both stdout and file
+	multi := io.MultiWriter(rotator)
+	LoggerS3 = log.New(multi, "[S3] ", log.LstdFlags|log.Lshortfile)
 }
