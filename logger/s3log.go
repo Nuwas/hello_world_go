@@ -10,7 +10,7 @@ import (
 var LoggerS3 *log.Logger
 
 func init() {
-	logPath := "/var/log/app/s3.log"
+	logPath := "/var/log/app/delivery/s3.log"
 
 	// Set up lumberjack for rotation
 	rotator := &lumberjack.Logger{
