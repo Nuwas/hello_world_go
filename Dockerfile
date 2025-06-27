@@ -6,6 +6,7 @@ ENV workspace /app
 COPY go.mod $workspace/
 COPY go.sum $workspace/
 COPY cmd/ $workspace/cmd/
+COPY logger/ $workspace/logger/
 
 WORKDIR $workspace/
 # Build the Go app with CGO_ENABLED=0 for a statically linked binary
