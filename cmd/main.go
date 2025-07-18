@@ -29,6 +29,20 @@ func main() {
 		c.JSON(http.StatusOK, "Hello ....xxxx...")
 	})
 
+
+	router.GET("/fluentbit/v1/message", func(c *gin.Context) {
+
+		log.Println("Received /fluentbit/v1/message request .")
+
+		for i := 0; i < 100; i++ {
+			logger.LoggerS3.Println("Hello logPattern from /fluentbit/v1/message logger at", time.Now(), " -> ", i)
+		}
+
+		c.JSON(http.StatusOK, "Hello ....fluentbit...")
+	})
+
+	
+
 	router.GET("/yyyy-yyyy/v1/message-y", func(c *gin.Context) {
 
 		log.Println("Received /yyyy-yyyy/v1/message request .")
